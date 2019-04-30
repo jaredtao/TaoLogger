@@ -10,7 +10,7 @@ Qt制作的简易、好看的Log系统
 
 
 详细的说明看我博客:
-
+[Qt自制简易好看的日志系统](https://wentaojia2014.github.io/2019/04/30/Qt%E8%87%AA%E5%88%B6%E7%AE%80%E6%98%93%E5%A5%BD%E7%9C%8B%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/)
 
 ## status
 | [Ubuntu/MacOS][lin-link] | [Windows][win-link] |[License][license-link] |

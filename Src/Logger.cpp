@@ -1,4 +1,4 @@
-#include "Logger.h"
+﻿#include "Logger.h"
 #include "LoggerTemplate.h"
 #include <QCoreApplication>
 #include <QDateTime>
@@ -42,7 +42,7 @@ static void outputMessage(QtMsgType type, const QMessageLogContext &context, con
     static const QString messageTemp= QString("<div class=\"%1\">%2</div>\r\n");
     static const char typeList[] = {'d', 'w', 'c', 'f', 'i'};
     static QMutex mutex;
-
+    Q_UNUSED(context);
     QDateTime dt = QDateTime::currentDateTime();
 
     //每小时一个文件
@@ -71,12 +71,11 @@ static void outputMessage(QtMsgType type, const QMessageLogContext &context, con
 
     file.close();
     mutex.unlock();
-
 #ifdef Q_OS_WIN
     ::OutputDebugString(message.toStdWString().data());
     ::OutputDebugString(L"\r\n");
 #else
-    fprintf_s(stderr, message.toStdString().data());
+    fprintf(stderr, message.toStdString().data());
 #endif
 }
 } // namespace Logger
