@@ -1,0 +1,35 @@
+﻿language: cpp
+sudo: required
+compiler: gcc
+env: QT_BASE="512"
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      cache:
+        bundler: true
+        apt: true
+        directories:
+            - /opt/qt512/
+    - os: osx
+      osx_image: xcode10.2
+      cache:
+        bundler: true
+        directories:
+            - /usr/local/Cellar/qt/5.12.2/
+    - os: osx
+      osx_image: xcode9.4
+      cache:
+        bundler: true
+        directories:
+            - /usr/local/Cellar/qt/5.12.2/
+
+group: deprecated-2019Q1
+before_install:
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; brew install qt; fi 
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.12.3-xenial -y; sudo apt-get update -qq; sudo apt-get install -y libglew-dev libglfw3-dev; sudo apt-get install -y qt512-meta-minimal; fi
+script:
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then source /opt/qt512/bin/qt512-env.sh; qmake ; make ; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then /usr/local/Cellar/qt/5.12.2/bin/qmake ; make ; fi
+notifications:
+    email: false

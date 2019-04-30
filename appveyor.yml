@@ -1,0 +1,38 @@
+﻿version: build{build}
+
+branches:
+  except:
+    - project/travis
+
+environment:
+  matrix:
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    platform: x86
+    qt: 5.9
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    platform: x64
+    qt: 5.9
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    platform: x64
+    qt: 5.9
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    platform: x64
+    qt: 5.12
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    platform: x64
+    qt: 5.12
+before_build:
+  - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" set msvc=msvc2015
+  - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" set vs=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC
+  - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" set msvc=msvc2017
+  - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" set vs=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
+  - if "%platform%"=="x86" set QTDIR=C:\Qt\%qt%\%msvc%
+  - if "%platform%"=="x64" set QTDIR=C:\Qt\%qt%\%msvc%_64
+  - set PATH=%PATH%;%QTDIR%\bin;
+  - if "%platform%"=="x86" set vcvarsall=%vs%\vcvarsall.bat
+  - if "%platform%"=="x64" set vcvarsall=%vs%\vcvarsall.bat
+  - if "%platform%"=="x86" call "%vcvarsall%" x86
+  - if "%platform%"=="x64" call "%vcvarsall%" x64
+build_script:
+  - qmake
+  - nmake
