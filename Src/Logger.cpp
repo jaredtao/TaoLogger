@@ -42,6 +42,8 @@ static void outputMessage(QtMsgType type, const QMessageLogContext &context, con
     static const QString messageTemp= QString("<div class=\"%1\">%2</div>\r\n");
     static const char typeList[] = {'d', 'w', 'c', 'f', 'i'};
     static QMutex mutex;
+    static QFile file;
+    static QTextStream textStream;
     Q_UNUSED(context);
     QDateTime dt = QDateTime::currentDateTime();
 
@@ -56,20 +58,26 @@ static void outputMessage(QtMsgType type, const QMessageLogContext &context, con
     QString contentDt = dt.toString("yyyy-MM-dd hh:mm:ss");
     QString message = QString("%1 %2").arg(contentDt).arg(msg);
     QString htmlMessage = messageTemp.arg(typeList[static_cast<int>(type)]).arg(message);
-    QFile file(QString("%1/%2_log.html").arg(gLogDir).arg(fileNameDt));
-
+    QString newfileName = QString("%1/%2_log.html").arg(gLogDir).arg(fileNameDt);
     mutex.lock();
-    bool exist = file.exists();
-    file.open(QIODevice::WriteOnly | QIODevice::Append);
-    QTextStream text_stream(&file);
-    text_stream.setCodec("UTF-8");
-    if (!exist)
+    if (file.fileName() != newfileName)
     {
-        text_stream << logTemplate << "\r\n";
+        if (file.isOpen())
+        {
+            file.close();
+        }
+        file.setFileName(newfileName);
+        bool exist = file.exists();
+        file.open(QIODevice::WriteOnly | QIODevice::Append);
+        textStream.setDevice(&file);
+        textStream.setCodec("UTF-8");
+        if (!exist)
+        {
+            textStream << logTemplate << "\r\n";
+        }
     }
-    text_stream << htmlMessage;
-
-    file.close();
+    textStream << htmlMessage;
+    file.flush();
     mutex.unlock();
 #ifdef Q_OS_WIN
     ::OutputDebugString(message.toStdWString().data());
