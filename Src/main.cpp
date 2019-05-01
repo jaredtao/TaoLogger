@@ -2,20 +2,19 @@
 #include <QGuiApplication>
 #include "Logger.h"
 
-#include <QThread>
-
 #include <iostream>
 #include <chrono>
 #include <vector>
 #include <atomic>
 #include <sstream>
-//#include <thread>
+#include <thread>
+
 using namespace  Logger;
 using namespace std;
 const int N = 8;
 
 //原子计数器。不要用普通的int，多线程情况下不准确。
-static atomic_int gCount = 0;
+static atomic_int gCount(0);
 static QString currentThreadId()
 {
 
