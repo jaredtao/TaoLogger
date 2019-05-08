@@ -17,11 +17,11 @@ Qt制作的简易、好看的Log系统
 | :---------------: | :-----------------: | :-----------------: |
 | ![lin-badge]      | ![win-badge]        | ![license-badge]  |
 
-[lin-badge]: https://travis-ci.org/wentaojia2014/TaoLogger.svg?branch=master "Travis build status"
-[lin-link]: https://travis-ci.org/wentaojia2014/TaoLogger "Travis build status"
+[lin-badge]: https://travis-ci.org/jaredtao/TaoLogger.svg?branch=master "Travis build status"
+[lin-link]: https://travis-ci.org/jaredtao/TaoLogger "Travis build status"
 [win-badge]: https://ci.appveyor.com/api/projects/status/biawnp5xfulvkwbw?svg=true "AppVeyor build status"
 [win-link]: https://ci.appveyor.com/project/jiawentao/taologger "AppVeyor build status"
-[license-link]: https://github.com/wentaojia2014/TaoLogger/blob/master/LICENSE "LICENSE"
+[license-link]: https://github.com/jaredtao/TaoLogger/blob/master/LICENSE "LICENSE"
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg "MIT"
 
 
