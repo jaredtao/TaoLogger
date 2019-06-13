@@ -6,7 +6,7 @@ Qt制作的简易、好看的Log系统
 
 麻雀虽小五脏俱全
 
-![预览](http://pqrbffxkg.bkt.clouddn.com/Logger/1.png)
+![预览](https://jaredtao.github.io/images/Logger/1.png)
 
 
 详细的说明看我博客:
