@@ -35,13 +35,12 @@ static void showSomeLogger()
     {
         gCount++;
         int count = gCount;
-//        LOG_DEBUG << currentThreadId() << u8"山有木兮木有枝，心悦君兮君不知。";
-//        LOG_DEBUG << currentThreadId() << QStringLiteral("黄河远上白云间，一片孤城万仞山。");
-//        LOG_DEBUG << currentThreadId() << QString::fromLocal8Bit("人生若只如初见，何事秋风悲画扇。");
-//        LOG_INFO << currentThreadId() << u8"玲珑骰子安红豆，入骨相思知不知。";
-//        LOG_WARN << currentThreadId() << u8"此情可待成追忆，只是当时已惘然。";
+        LOG_DEBUG << currentThreadId() << u8"山有木兮木有枝，心悦君兮君不知。";
+        LOG_DEBUG << currentThreadId() << QStringLiteral("黄河远上白云间，一片孤城万仞山。");
+        LOG_DEBUG << currentThreadId() << QString::fromLocal8Bit("人生若只如初见，何事秋风悲画扇。");
+        LOG_INFO << currentThreadId() << u8"玲珑骰子安红豆，入骨相思知不知。";
+        LOG_WARN << currentThreadId() << u8"此情可待成追忆，只是当时已惘然。";
         LOG_CRIT << currentThreadId() << u8"严重的事情发生了，股票跌了!" << count;
-
         qApp->processEvents();
     }
 }
@@ -74,10 +73,10 @@ int main(int argc, char *argv[])
     view.resize(800, 600);
     view.setSource(QUrl(QStringLiteral("qrc:/Qml/main.qml")));
     view.show();
-
+    //延迟创建 logger
     QTimer::singleShot(2000, [&](){
-        std::thread logT(logThread);
-        logT.detach();
+        std::thread logger(logThread);
+        logger.detach();
     });
     app.exec();
 }
