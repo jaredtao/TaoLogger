@@ -1,6 +1,8 @@
-﻿#include <QQuickView>
+﻿#include "Logger.h"
+
+#include <QQuickView>
 #include <QGuiApplication>
-#include "Logger.h"
+#include <QTimer>
 
 #include <iostream>
 #include <chrono>
@@ -43,8 +45,6 @@ static void showSomeLogger(int index)
         LOG_WARN << currentThreadId() << u8"此情可待成追忆，只是当时已惘然。";
         LOG_CRIT << currentThreadId() << u8"严重的事情发生了，股票跌了!" << count;
 
-//        this_thread::sleep_for(chrono::milliseconds(20));
-
         qApp->processEvents();
     }
 }
@@ -62,14 +62,18 @@ int main(int argc, char *argv[])
     view.show();
     vector<std::thread> threads;
     //创建N个线程
-    for (int i = 0; i < N; ++i) {
+    for (unsigned long long i = 0; i < N; ++i) {
         threads.emplace_back(thread(showSomeLogger, i));
     }
-    //启动N个线程
-    for (int i = 0; i < N; ++i)
-    {
-        threads[i].join();
-    }
+    //延迟join,让UI的事件循环先跑起来
+    QTimer::singleShot(100, [&](){
+        //启动N个线程
+        for (unsigned long long i = 0; i < N; ++i)
+        {
+            threads[i].join();
+        }
+    });
+
 
 
     LOG_INFO << currentThreadId() << u8"故事到这就结束了，总共输出log" << gCount;
