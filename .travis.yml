@@ -7,23 +7,18 @@ matrix:
     - os: linux
       dist: xenial
       cache:
-        bundler: true
         apt: true
         directories:
             - /opt/qt512/
     - os: osx
       osx_image: xcode10.2
-      cache:
-        bundler: true
-        directories:
-            - /usr/local/Cellar/qt/5.13.0/
 
 group: deprecated-2019Q1
 before_install:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; brew install qt; fi 
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.12.3-xenial -y; sudo apt-get update -qq; sudo apt-get install -y libglew-dev libglfw3-dev; sudo apt-get install -y qt512-meta-minimal; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then chmod a+x ./scripts/macos/install.sh;  ./scripts/macos/install.sh; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then chmod a+x ./scripts/ubuntu/install.sh; ./scripts/ubuntu/install.sh; fi
 script:
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then source /opt/qt512/bin/qt512-env.sh; qmake ; make ; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then /usr/local/Cellar/qt/5.13.0/bin/qmake ; make ; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then chmod a+x ./scripts/macos/build.sh; ./scripts/macos/build.sh; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then chmod a+x ./scripts/ubuntu/build.sh; ./scripts/ubuntu/build.sh; fi
 notifications:
     email: false

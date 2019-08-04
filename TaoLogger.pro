@@ -28,6 +28,19 @@ QML_IMPORT_PATH =
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
+OTHER_FILES += README.md \
+    .clang-format \
+    LICENSE \
+    appveyor.yml \
+    .travis.yml
+macos {
+OTHER_FILES += \
+    scripts/macos/install.sh \
+    scripts/macos/build.sh
+}
 
-
-
+linux {
+OTHER_FILES += \
+    scripts/ubuntu/install.sh \
+    scripts/ubuntu/build.sh \
+}
