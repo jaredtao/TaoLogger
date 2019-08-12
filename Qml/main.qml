@@ -8,4 +8,11 @@ Item {
     FPSItem {
         id: fpsItem
     }
+    Button {
+        y: 100
+        text: "log"
+        onClicked: {
+            console.log("Clicked")
+        }
+    }
 }

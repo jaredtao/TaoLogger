@@ -13,7 +13,7 @@
 
 using namespace  Logger;
 using namespace std;
-const int N = 17;
+const int N = 7;
 
 //原子计数器。不要用普通的int，多线程情况下不准确。
 static atomic_int gCount(0);
@@ -67,16 +67,17 @@ int main(int argc, char *argv[])
     //app创建之后，调一下initLog就行了
     initLog();
 
-    LOG_INFO << currentThreadId() << u8"故事就是从这里开始的";
-    QQuickView view;
-    view.setResizeMode(QQuickView::SizeRootObjectToView);
-    view.resize(800, 600);
-    view.setSource(QUrl(QStringLiteral("qrc:/Qml/main.qml")));
-    view.show();
-    //延迟创建 logger
+
+//    QQuickView view;
+//    view.setResizeMode(QQuickView::SizeRootObjectToView);
+//    view.resize(800, 600);
+//    view.setSource(QUrl(QStringLiteral("qrc:/Qml/main.qml")));
+//    view.show();
+//    //延迟创建 logger
     QTimer::singleShot(2000, [&](){
-        std::thread logger(logThread);
-        logger.detach();
+//        std::thread logger(logThread);
+//        logger.detach();
+        LOG_INFO << currentThreadId() << u8"故事就是从这里开始的";
     });
     app.exec();
 }
