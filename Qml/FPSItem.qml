@@ -6,9 +6,10 @@ Item {
     property int frameCount: 0
     property bool running: true
 
-    Item {
+    Rectangle {
         width: 32
         height: 32
+        color: "red"
         RotationAnimation on rotation {
             from: 0
             to: 360
