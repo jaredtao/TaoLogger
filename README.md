@@ -1,4 +1,6 @@
-﻿# TaoLogger
+# TaoLogger
+
+## 简介
 
 Qt制作的简易、好看的Log系统
 
@@ -7,10 +9,6 @@ Qt制作的简易、好看的Log系统
 麻雀虽小五脏俱全
 
 ![预览](https://jaredtao.github.io/images/Logger/1.png)
-
-
-详细的说明看我博客:
-[Qt自制简易好看的日志系统](https://jaredtao.github.io/2019/04/30/Qt%E8%87%AA%E5%88%B6%E7%AE%80%E6%98%93%E5%A5%BD%E7%9C%8B%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/)
 
 ## status
 | [Ubuntu/MacOS][lin-link] | [Windows][win-link] |[License][license-link] |
@@ -24,10 +22,44 @@ Qt制作的简易、好看的Log系统
 [license-link]: https://github.com/jaredtao/TaoLogger/blob/master/LICENSE "LICENSE"
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg "MIT"
 
+## 使用
+
+源代码拷过去，在main函数的QCoreApplication/QApplication构造之后，调用一下init函数就行了。
+
+例如：
+```C++
+#include "TaoLogger.h"
+//省略其它头文件
+...
+...
+int main(int argc, char *argv[])
+{
+   QApplication app(argc, argv);
+   initLog();
+   ...
+   return app.exec();
+}
+```
+
+initLog函数的定义如下:
+```
+void initLog(const QString &logPath = QStringLiteral("Log"), int logMaxCount = 1024, bool async = true);
+```
+其中logPath为log存储路径，默认为Log文件夹。
+
+logMaxCount最大文件数，默认为1024。
+
+async为异步存储，默认为true。
 
 ## 开发环境
 
 * Qt 5.9.x Windows
+
+## 原理
+详细的说明看我博客:
+[Qt自制简易好看的日志系统](https://jaredtao.github.io/2019/04/30/Qt%E8%87%AA%E5%88%B6%E7%AE%80%E6%98%93%E5%A5%BD%E7%9C%8B%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/)
+
+
 
 ### 联系方式:
 
